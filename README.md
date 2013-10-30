@@ -9,4 +9,6 @@ Requirements: web browser.
 
 Usage: Open up index.html in your browser.
 
+Demo: http://fishwasher.com/demo/webdev-toolbox/index.html
+
 Original version created in 2008.
