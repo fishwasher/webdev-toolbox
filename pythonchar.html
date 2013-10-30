@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Entity Picker for PDF</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+a {text-decoration:none;}
+a:hover {color:#c30; text-decoration:underline;}
+table.chartab {border:1px solid #000; background-color:#fff; text-align:left;}
+table.chartab td {background-color:#fff;}
+table.chartab td.pick {padding:1px; text-align:center; color:#036; font-weight:bold; min-width:2em; border:1px solid #000; border-width:1px 0 0 1px; cursor:pointer;}
+table.chartab td.hexvals {background-color:#ccc; color:#000; font:normal 9pt 'courier new',monospace; border:0;}
+table.chartab td.empty {background:#dcdcdc;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+.code {font:10pt 'courier new',monospace; color:#039; background-color:#dcdcdc;}
+div.code {border:1px solid #ccc;}
+div.main {margin:4px 8px;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+#copyconfirm {color:#666;}
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+function unpaintCell(){
+	if (lastCell) lastCell.style.backgroundColor='#fff';
+	lastCell=null;
+}
+function paintCell(oTd){
+	unpaintCell();
+	lastCell=oTd;
+	lastCell.style.backgroundColor='#ff0';
+}
+function copyMySpan(oTd, n){
+	paintCell(oTd);
+	var o1=document.getElementById('entity'+n);
+	var o2=document.getElementById('myinput');
+	var o3=document.getElementById('status');
+	o3.style.display='block';
+	//o2.disabled=false;
+	o2.value=o1.innerHTML.replace('&amp;', '&');
+	o2.focus(); o2.select();
+	var s=(document.all) ? document.selection:window.getSelection();
+	var r=(document.all) ? s.createRange():s.getRangeAt(0);
+	var o4=document.getElementById('copyconfirm');
+	var t=(document.all)? 'Copied to Clipboard (Ctrl-V to Paste elsewhere)':' (Press Ctrl-C to copy)';
+	o4.innerHTML='<span class="big">&#'+n+';</span> '+t;
+	if (document.all) {
+		r.execCommand("Copy");
+	}
+}
+function clearMyCopy(oIn){
+	unpaintCell();
+	oIn.value='';// oIn.blur(); oIn.disabled=true;
+	var oSpan=document.getElementById('copyconfirm');
+	oSpan.innerHTML='';
+	var oP=document.getElementById('status');
+	oP.style.display='none';
+}
+var aX=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'], iMax=aX.length, a1=[], a2=[];
+a1.push('<tr>\n<td class="hexvals">hex</td>');
+for (var i=0; i<iMax; i++) a1.push('<td class="hexvals">'+aX[i]+'</td>');
+a1.push('\n</tr>');
+for (i=2; i<iMax; i++) {
+	a2=['\n<tr>\n<td class="hexvals">&nbsp;&nbsp;'+aX[i]+'&nbsp;&nbsp;</td>'];
+	for (j=0; j<iMax; j++) {
+		var n = i*iMax+j, sn=n;
+		// chars 127-159 are missing in standard fonts
+		if (n>126 && n<160) {
+			a2.push('<td class="pick empty">&nbsp;<br/>&nbsp;</td>');
+		}
+		else {
+			if (n<100) sn='0'+sn;
+			var c1='&#'+sn+';', c2='\\x'+aX[i]+aX[j];
+			var id=' id="entity'+n+'"';
+			a2.push('<td class="pick" onclick="copyMySpan(this,'+n+')">'+c1+'<br/>&nbsp;<span'+id+' class="small">'+c2+'</span>&nbsp;</td>');
+		}
+	}
+	a2.push('\n</tr>');
+	a1.push(a2.join(''));
+}
+var lastCell=null;
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>Character's Hex Code Picker for Python</h1>
+<p>Only characters available in Reportlab's standard fonts are shown.</p>
+<p>Click on character to select/copy:</p>
+<table class="chartab" cellspacing="0">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+document.write(a1.join('\n'));
+//--><!]]></script>
+</table>
+<p id="status" style="display:none;"><input type="text" id="myinput" size="10" onclick="clearMyCopy(this)" /> <span id="copyconfirm"></span></p>
+</div>
+</body>
+</html>

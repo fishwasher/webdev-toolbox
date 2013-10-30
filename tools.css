@@ -1,0 +1,37 @@
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+body.nav {background:#dcdcdc; text-align:center;}
+
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+a {text-decoration:none;}
+a:hover {color:#c30; text-decoration:underline;}
+
+table.chartab {border:1px solid #000; background-color:#fff; text-align:left;}
+table.chartab td {background-color:#fff;}
+table.chartab td.pick {padding:1px; text-align:center; color:#036; font-weight:bold; min-width:2em; border:1px solid #000; border-width:1px 0 0 1px; cursor:pointer;}
+table.chartab td.hexvals {background-color:#ccc; color:#000; font:normal 9pt 'courier new',monospace; border:0;}
+table.chartab td.empty {background:#dcdcdc;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+.code {font:10pt 'courier new',monospace; color:#039; background-color:#dcdcdc;}
+div.code {border:1px solid #ccc;}
+.clear {clear:both;}
+
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+ul.nobull {list-style-type:none; margin-left:1em;}
+
+div.main {margin:4px 8px;}
+
+#navmain {padding:4px;}
+#navmain h1 {font:normal 16pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+#navmain h2 {font:normal 12pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+#navmain button {width:180px;}
+
+
+
+#result {padding:1em; font:9pt arial,sans-serif; background:#dcdcdc; border:1px solid #666;}
+#copyconfirm {color:#666;}

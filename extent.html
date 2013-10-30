@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Extended Entities</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {margin:0; padding:0;}
+body {font:9pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+a {text-decoration:none;}
+a:hover {color:#c30; text-decoration:underline;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+.noie6 {color:#c30;}
+div.main {padding:0.5em;}
+div.slate {padding:0.2em;}
+div.slate p {font:italic bold 9pt arial,helvetica,sans-serif; color:#03c; line-height:1.2;}
+div.slate table {border:2px solid #999; border-width:2px 2px 0 0; background:#fff;}
+div.slate td {padding:0; border-left:1px solid #999; border-bottom:1px solid #999; text-align:center;}
+div.slate td.symbol {font-size:14pt; color:#03c; border-left-width:4px; width:2em;}
+div.slate td.encode {font:9pt 'courier new',monospace; width:6em;}
+div.slate td.nonempty {cursor:pointer;}
+div.slate td.nonempty:hover {background:#fc6;}
+div.slate td.nonempty {cursor:pointer;}
+div#entities {width:800px; height:600px; overflow-y:scroll; border:1px solid #999; background:#dcdcdc; padding:4px;}
+#copyconfirm {color:#666;}
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+aExtEnt=[
+{
+	'title':"Latin Extended-A",
+	'set':['338 OElig', '339 oelig', '352 Scaron', '353 scaron', '376 Yuml']
+},
+{
+	'title':"Latin Extended-B",
+	'set':['402 fnof']
+},
+{
+	'title':"Spacing Modifier Letters",
+	'set':['710 circ', '732 tilde']
+},
+{
+	'title':"Greek",
+	'set':['913 Alpha', '914 Beta', '915 Gamma', '916 Delta', '917 Epsilon', '918 Zeta', '919 Eta', '920 Theta', '921 Iota', '922 Kappa', '923 Lambda', '924 Mu', '925 Nu', '926 Xi', '927 Omicron', '928 Pi', '929 Rho', '931 Sigma', '932 Tau', '933 Upsilon', '934 Phi', '935 Chi', '936 Psi', '937 Omega', '945 alpha', '946 beta', '947 gamma', '948 delta', '949 epsilon', '950 zeta', '951 eta', '952 theta', '953 iota', '954 kappa', '955 lambda', '956 mu', '957 nu', '958 xi', '959 omicron', '960 pi', '961 rho', '962 sigmaf', '963 sigma', '964 tau', '965 upsilon', '966 phi', '967 chi', '968 psi', '969 omega', '977* thetasym*', '978* upsih*', '982* piv*']
+},
+{
+	'title':"General Punctuation",
+	'set':[/*'8194 ensp', '8195 emsp', '8201 thinsp', '8204 zwnj', '8205 zwj', '8206 lrm', '8207 rlm', */'8211 ndash', '8212 mdash', '8216 lsquo', '8217 rsquo', '8218 sbquo', '8220 ldquo', '8221 rdquo', '8222 bdquo', '8224 dagger', '8225 Dagger', '8226 bull', '8230 hellip', '8240 permil', '8242 prime', '8243 Prime', '8249 lsaquo', '8250 rsaquo', '8254 oline', '8260 frasl', '8364 euro']
+},
+{
+	'title':"Letter-like Symbols",
+	'set':['8472* weierp*', '8465* image*', '8476* real*', '8482 trade', '8501* alefsym*']
+},
+{
+	'title':"Arrows",
+	'set':['8592 larr', '8593 uarr', '8594 rarr', '8595 darr', '8596 harr', '8629* crarr*', '8656* lArr*', '8657* uArr*', '8658 rArr', '8659* dArr*', '8660 hArr']
+},
+{
+	'title':"Mathematical Operators",
+	'set':['8704 forall', '8706 part', '8707 exist', '8709* empty*', '8711 nabla', '8712 isin', '8713* notin*', '8715 ni', '8719 prod', '8721 sum', '8722 minus', '8727* lowast*', '8730 radic', '8733 prop', '8734 infin', '8736 ang', '8743 and', '8744 or', '8745 cap', '8746 cup', '8747 int', '8756 there4', '8764 sim', '8773* cong*', '8776 asymp', '8800 ne', '8801 equiv', '8804 le', '8805 ge', '8834 sub', '8835 sup', '8836* nsub*', '8838 sube', '8838 supe', '8853 oplus', '8855* otimes*', '8869 perp', '8901* sdot*']
+},
+{
+	'title':"Misc. Tech. Symbols",
+	'set':['8968* lceil*', '8969* rceil*', '8970* lfloor*', '8971* rfloor*', '9001* lang*', '9002* rang*']
+},
+{
+	'title':"Geometric Shapes",
+	'set':['9674 loz']
+},
+{
+	'title':"Misc. Symbols",
+	'set':['9824 spades', '9827 clubs', '9829 hearts', '9830* diams*']
+}
+];
+
+var bUseNumbers2Render=0, iDataCols=3;
+
+function f1(s, b){var amp=(b)? '&amp;':'&'; return (isNaN(parseInt(s)))? amp+s+';':amp+'#'+s+';';}
+function htmlDataBox(oData){
+	var a=[], iCnt=0;
+	a.push('<div class="slate"><p>'+oData.title+'</p><table cellspacing="0">');
+	for (var i=0, n=oData.set.length; i<n; i++){
+		var a2=oData.set[i].split(/[^\w\*]+/), sNum=a2[0], sLit=(a2.length>1)? a2[1]:'', c1='encode nonempty', c2=c1;
+		// check if entry is marked with trailing (*), (as incompatible with IE6-)
+		var aa=sLit.split('*');
+		if (aa.length>1) {sLit=aa[0]; c1+=' noie6'}
+		aa=sNum.split('*');
+		if (aa.length>1) {sNum=aa[0]; c2+=' noie6'}
+		var sHexNum='', iNum=parseInt(sNum);
+		if (!isNaN(iNum)) sHexNum='0x'+iNum.toString(16);
+		var sDisp=(bUseNumbers2Render || !sLit)? sNum:sLit;
+		if (!(i%iDataCols)) a.push('<tr>');
+		//a.push('<td class="symbol">'+f1(sDisp,0)+'</td><td class="'+c1+'" onclick="copyMyEntity(this)">'+f1(sLit,1)+'</td><td class="'+c2+'" onclick="copyMyEntity(this)">'+f1(sNum,1)+'</td>');
+		a.push('<td class="symbol">'+f1(sDisp,0)+'</td><td class="'+c1+'" onclick="copyMyEntity(this)">'+f1(sLit,1)+'</td><td class="'+c2+'" onclick="copyMyEntity(this)">'+f1(sNum,1)+'</td><td class="'+c2+' hexnum" onclick="copyMyEntity(this)">'+sHexNum+'</td>');
+		iCnt++;
+		if (!(iCnt%iDataCols)) a.push('</tr>');
+	}
+	var iRest=((iCnt>iDataCols) && (iCnt%iDataCols))? iDataCols-(iCnt%iDataCols):0
+	if (iRest) {
+		//for (var i=0; i<iRest; i++) a.push('<td class="symbol">&nbsp;</td><td class="encode">&nbsp;</td><td class="encode">&nbsp;</td>');
+		for (var i=0; i<iRest; i++) a.push('<td class="symbol">&nbsp;</td><td class="encode">&nbsp;</td><td class="encode">&nbsp;</td><td class="encode">&nbsp;</td>');
+		a.push('</tr>');
+	}
+	a.push('</table></div>');
+	return a.join('\n');
+}
+function copyMyEntity(oEl){
+	var o1=document.getElementById('myinput');
+	var o2=document.getElementById('status');
+	o2.style.display='block';
+	
+	if (oEl.className.indexOf('hexnum')>=0){
+		sCheck='';
+		iNum=parseInt(oEl.innerHTML.replace('0x',''), 16);
+		if (!isNaN(iNum)) sCheck='&#'+iNum+';';
+		o1.value=oEl.innerHTML;
+	}
+	else {
+		sCheck=oEl.innerHTML.replace('&amp;', '&');;
+		o1.value=sCheck;
+	}
+	
+	o1.focus(); o1.select();
+	var s=(document.all) ? document.selection:window.getSelection();
+	var r=(document.all) ? s.createRange():s.getRangeAt(0);
+	var o4=document.getElementById('copyconfirm');
+	var t=(document.all)? 'Copied to Clipboard (Ctrl-V to Paste elsewhere)':' (Press Ctrl-C to copy)';
+	o4.innerHTML='<span class="big">'+sCheck+'</span> '+t;
+	if (document.all) {
+		r.execCommand("Copy");
+	}
+}
+
+function clearMyCopy(oIn){
+	oIn.value='';// oIn.blur(); oIn.disabled=true;
+	var oSpan=document.getElementById('copyconfirm');
+	oSpan.innerHTML='';
+	var oP=document.getElementById('status');
+	oP.style.display='none';
+}
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>Extended HTML4.01 Entity Picker</h1>
+<p>Click on character's code to select/copy</p>
+<p class="small noie6">red ones won't work in IE6</p>
+<div id="entities">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+for (var i=0, n=aExtEnt.length; i<n; i++) {
+	document.write(htmlDataBox(aExtEnt[i]));
+}
+//--><!]]></script>
+<p>&nbsp;</p>
+</div>
+<p id="status" style="display:none;"><input type="text" id="myinput" size="10" onclick="clearMyCopy(this)" /> <span id="copyconfirm"></span></p>
+</div>
+</body>
+</html>

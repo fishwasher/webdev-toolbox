@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Newline remover</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+div.main {margin:4px 8px;}
+#result {padding:1em; font:9pt arial,sans-serif; background:#dcdcdc; border:1px solid #666;}
+
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+
+function clearOutput(){
+	document.forms[0].elements['textOut'].value='';
+	document.getElementById('divOut').style.display='none';
+	document.getElementById('result').innerHTML='';
+}
+function translate2Ascii(sIn){
+	var a=[];
+	for (var i=0, n=sIn.length; i<n; i++) {
+		var iN=sIn.charCodeAt(i);
+		if (iN<128) a.push(sIn.charAt(i));
+		else {
+			a.push(charNum2Ascii(iN));
+		}
+	}
+	return a.join('');
+}
+function removeNewlines(){
+	var f=document.forms[0];
+	document.getElementById('divOut').style.display='block';
+	vIn=f.elements['textIn'].value;
+	oOut=f.elements['textOut'];
+	oOut.value=vIn.replace(/\r?\n/g, '');
+	oOut.focus(); oOut.select();
+	//document.getElementById('result').innerHTML=oOut.value;
+}
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>Newline Remover.</h1>
+<p>This tool will remove newline chars (\n or \r\n).</p>
+<form onsubmit="return false">
+<div onclick="clearOutput()">
+<p>Enter text:</p>
+<textarea name="textIn" rows="8" cols="80" onfocus="this.select()"></textarea>
+</div>
+<p><button onclick="removeNewlines()">Process</button></p>
+<div id="divOut" style="display:none;">
+<p>Copy this (Ctrl-C):</p>
+<textarea name="textOut" rows="8" cols="80"></textarea>
+</div>
+</form>
+</div>
+</body>
+</html>

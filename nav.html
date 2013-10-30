@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>No Title</title>
+<link rel="stylesheet" type="text/css" href="tools.css" />
+<style>
+* {padding:0; margin:0;}
+body {background:#dcdcdc; text-align:center;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+a {text-decoration:none;}
+a:hover {color:#c30; text-decoration:underline;}
+#navmain {padding:4px;}
+#navmain h1 {font:normal 16pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+#navmain h2 {font:normal 12pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+#navmain button {width:180px; cursor:pointer;}
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+function switchPageTo(sUrl){
+	parent.frames['main'].location.replace(sUrl);
+	aBtns=document.getElementsByTagName('button');
+	for (var i=0, n=aBtns.length; i<n; i++) aBtns[i].disabled=false;
+	document.getElementById(sUrl.replace('.html', 'Btn')).disabled=true;
+}
+window.onload=function(){switchPageTo('epic.html');}
+//--><!]]></script>
+
+</head>
+<body>
+<div id="navmain">
+<h1>Dev Toolbox</h1>
+<p>&nbsp;</p>
+<h2>HTML Tools</h2>
+<p><button id="epicBtn" onclick="switchPageTo('epic.html')">Entity Picker</button></p>
+<p><button id="extentBtn" onclick="switchPageTo('extent.html')">Extended Entities</button></p>
+<p><button id="htmlcoderBtn" onclick="switchPageTo('htmlcoder.html')">Text Coder/Obfuscator</button></p>
+<p><button id="urlcoderBtn" onclick="switchPageTo('urlcoder.html')">URI Encoder/Decoder</button></p>
+<p><button id="htmltemplatesBtn" onclick="switchPageTo('htmltemplates.html')">HTML Templates</button></p>
+<p>&nbsp;</p>
+<h2>Plain text tools</h2>
+<p><button id="asciitextBtn" onclick="switchPageTo('asciitext.html')">ASCII Translator</button></p>
+<p><button id="onelineBtn" onclick="switchPageTo('oneline.html')">Newline Remover</button></p>
+<p>&nbsp;</p>
+<h2>Python string tools</h2>
+<p><button id="pythoncharBtn" onclick="switchPageTo('pythonchar.html')">Char Picker for Python</button></p>
+<p><button id="pythonizerBtn" onclick="switchPageTo('pythonizer.html')">Text Pythonizer</button></p>
+<p>&nbsp;</p>
+<h2>General tools</h2>
+<p><button id="dec2hexBtn" onclick="switchPageTo('dec2hex.html')">Dec/Hex Converter</button></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>HTML Templates</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+a {text-decoration:none; color:#03c;}
+a:hover {color:#c30; text-decoration:underline;}
+div.main {margin:4px 8px;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+.code {font:10pt 'courier new',monospace; color:#039; background-color:#dcdcdc;}
+div.code {border:1px solid #ccc;}
+.clear {clear:both;}
+
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+ul.nobull {list-style-type:none; margin-left:1em;}
+
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+var oHtmlTpl={
+/*
+	'html401t':{
+		'title':"",
+		'content':''
+	},
+*/
+	'html401t':{
+		'title':"HTML 4.01 Trans.",
+		'content':'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"\n\t\t\t"http://www.w3.org/TR/html4/loose.dtd">\n'
+	},
+	'html401s':{
+		'title':"HTML 4.01 Strict",
+		'content':'<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"\n\t\t\t"http://www.w3.org/TR/html4/strict.dtd">\n'
+	},
+	'xhtml1t':{
+		'title':"XHTML 1.0 Trans.",
+		'content':'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">\n'
+	},
+	'xhtml1s':{
+		'title':"XHTML 1.0 Strict",
+		'content':'<?xml version="1.0" encoding="utf-8"?>\n<'+'!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">\n'
+	},
+	'fieldset':{
+		'title':"fieldset",
+		'content':'<fieldset><legend>Title</legeng>\n\n</fieldset>\n'
+	},
+	'form':{
+		'title':"form",
+		'content':'<form method="post" action="myaction" onsubmit="return validateMyForm()">\n\n</form>\n'
+	},
+/*
+	'formfile':{
+		'title':"form/upload",
+		'content':'<form method="post" action="myaction" enctype="multipart/form-data" onsubmit="return validateMyForm()">\n\t<input type="file" name="myfile" />\n</form>\n'
+	},
+*/
+	'iframe':{
+		'title':"iframe",
+		'content':'<iframe src="http://www.example.com/" width="200" height="200" frameborder="0" scrolling="auto" noresize="noresize"></iframe>'
+	},
+	'img':{
+		'title':"img",
+		'content':'<img src="myimage.jpg" border="0" width="100" height="100" title="" alt="" />'
+	},
+	'checkbox':{
+		'title':"input/checkbox",
+		'content':'<input type="checkbox" name="mybox" value="1" checked="checked" />'
+	},
+	'inbutton':{
+		'title':"input/button",
+		'content':'<input type="button" name="mybutton" value="Go" onclick="myClickProc()" />'
+	},
+	'hidden':{
+		'title':"input/hidden",
+		'content':'<input type="hidden" name="myhidden" value="myvalue" />'
+	},
+	'inimage':{
+		'title':"input/image",
+		'content':'<input type="image" name="myimage" src="myimage.jpg" alt="Go" />'
+	},
+	'inpass':{
+		'title':"input/password",
+		'content':'<input type="password" name="mypass" size="20" maxlength="20" />'
+	},
+	'radio':{
+		'title':"input/radio",
+		'content':'<input type="radio" name="myradio" value="1" checked="checked" /> first\n<input type="radio" name="myradio" value="2" /> second\n'
+	},
+	'reset':{
+		'title':"input/reset",
+		'content':'<input type="reset" value="Reset" />'
+	},
+	'submit':{
+		'title':"input/submit",
+		'content':'<input type="submit" name="mysubmit" value="Go" />'
+	},
+	'intext':{
+		'title':"input/text",
+		'content':'<input type="text" name="mytext" size="20" maxlength="100" value="" />'
+	},
+	'favicon':{
+		'title':"link/icon",
+		'content':'<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">'
+	},
+	'css':{
+		'title':"link/stylesheet",
+		'content':'<link rel="stylesheet" href="stylesheet.css" type="text/css">'
+	},
+	'meta':{
+		'title':"meta",
+		'content':'<meta name="keywords" content="" />'
+	},
+	'charset':{
+		'title':"meta/charset",
+		'content':'<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
+	},
+	'refresh':{
+		'title':"meta/refresh",
+		'content':'<meta http-equiv="Refresh" content="5; url=http://www.example.com/" />'
+	},
+	'script':{
+		'title':"script",
+		'content':'<'+'script type="text/javascript"><'+'!--//--'+'><![CDATA[//><'+'!--\n\n//--'+'><!]]></'+'script>\n'
+	},
+	'scriptsrc':{
+		'title':"script/src",
+		'content':'<'+'script type="text/javascript" src="myscript.js"></'+'script>\n'
+	},
+	'select':{
+		'title':"select",
+		'content':'<select name="myselectname" size="1">\n\t<option value="1" selected="selected">Option 1</option>\n\t<option value="2">Option 2</option>\n</select>\n'
+	},
+	'table':{
+		'title':"table",
+		'content':'<table border="0" cellpadding="0" cellspacing="0">\n\t<tr><td></td></tr>\n\t<tr><td></td></tr>\n</table>\n'
+	},
+	'textarea':{
+		'title':"textarea",
+		'content':'<textarea name="mytextarea" cols="40" rows="5"></textarea>'
+	}
+}
+
+oHtmlTpl['page']={
+	'title':"Blank Document",
+	'content':oHtmlTpl.xhtml1t.content+'<head><title>Document</title>\n</head>\n<body>\n\n</body>\n</html>'
+}
+
+function replSpecChars(sText){
+	var aChars=[['<', '&lt;'], ['>', '&gt;'], ['"', '&quot;'], ['\\n', '<br/>'], ['\\t', '&nbsp;&nbsp;&nbsp;&nbsp;']];
+	var s=sText;
+	for (var i=0, n=aChars.length; i<n; i++) {
+		eval("re=/"+aChars[i][0]+"/g");
+		s=s.replace(re, aChars[i][1]);
+	}
+	return s;
+}
+function showPreview(sText){
+	oEl=document.getElementById('preview');
+	oEl.style.display='block';
+	oEl.innerHTML=replSpecChars(sText);
+}
+function showTplPreview(sSelector){
+	showPreview(oHtmlTpl[sSelector].content);
+}
+function hidePreview(){
+	oEl=document.getElementById('preview');
+	oEl.style.display='none';
+	oEl.innerHTML='';
+}
+function getTemplateItems(){
+	var aOut=[];
+	for (sItem in oHtmlTpl) {
+		aOut.push(sItem);
+	}
+	// put last one on top
+	var s=aOut.pop();
+	aOut.unshift(s);
+	return aOut;
+}
+/*
+function getTplContent(sSelector){
+	return oHtmlTpl[sSelector].content;
+}
+*/
+function outputTemplate(sSelector){
+	var oTA=document.getElementById('output');
+	//oTA.innerHTML=getTplContent(sSelector);
+	oTA.value=oHtmlTpl[sSelector].content;
+	oTA.focus();
+	//oTA.select();
+	document.getElementById('preview').innerHTML='Press Ctrl-C to copy';
+}
+window.onload=function(){
+	var aItems=getTemplateItems(), iLen=aItems.length, a=[];
+	if (iLen) {
+		for (var i=0; i<iLen; i++) {
+			var oItem=oHtmlTpl[aItems[i]];
+			a.push('<li><a href="javascript:outputTemplate(\''+aItems[i]+'\')" onmouseover="showTplPreview(\''+aItems[i]+'\')" onmouseout="hidePreview()">'+oItem.title+'</a></li>');
+		}
+		var sStyle=(iLen>40)? ' style="height:600px; overflow-y:scroll;"':'';
+		document.getElementById('tplList').innerHTML='<ul class="nobull"'+sStyle+'>'+a.join('')+'</ul>';
+	}
+}
+//--><!]]></script>
+</head>
+<body>
+<div class="main" style="width:900px;">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>HTML Templates.</h1>
+<div id="tplList" style="width:160px; float:left;">
+</div>
+<div style="width:700px; float:left;">
+<div>
+<textarea id="output" rows="10" cols="80" onfocus="this.select()"></textarea>
+</div>
+<p>&nbsp;</p>
+<div id="preview" class="code" style="display:none;"></div>
+
+</div>
+</div><!-- .main -->
+</body>
+</html>

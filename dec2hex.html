@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Dec-to-Hex Converter</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+div.main {margin:4px 8px;}
+fieldset {padding:4px;}
+
+#decbox, #hexbox {width:200px; padding:10px; margin:10px; float:left;}
+.inbox legend {font:bold 12pt verdana,arial,helvetica,sans-serif; padding:4px;}
+.inbox input {font:12pt 'courier new',monospace;}
+#decbox legend, #decbox input {color:#03c;}
+#hexbox legend, #hexbox input {color:#c30;}
+
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+oJs={selectedInput:'', maxDigits:16};
+oJs.sDec='1234567890';
+oJs.sHex=oJs.sDec+'abcdef';
+oJs.selectInput=function(sId){
+	oJs.selectedInput=sId;
+}
+oJs.dropSelected=function(sId){
+	if (sId==oJs.selectedInput) oJs.selectedInput='';
+}
+oJs.checkInput=function(oIn, sAllowed){
+	var sVal=oIn.value.toLowerCase(), iLen=sVal.length, a=[];
+	for (var i=0; i<iLen; i++) {
+		var c=sVal.charAt(i);
+		if (sAllowed.indexOf(c)>=0 && i<=oJs.maxDigits) a.push(c);
+	}
+	oIn.value=a.join('');
+	return true;
+}
+oJs.getInput=function(sId){
+	return document.getElementById(sId);
+}
+oJs.readVal=function(sId){
+	var oIn=oJs.getInput(sId), sVal=oIn.value;
+	if (sVal==='') return sVal
+	var iRadix=(sId=='hexval')? 16:10, iVal=parseInt(sVal, iRadix);
+	return iVal;
+}
+oJs.writeVal=function(sId, iVal){
+	var oIn=oJs.getInput(sId), iRadix=(sId=='hexval')? 16:10, sVal=(iVal==='')? iVal:iVal.toString(iRadix);
+	oIn.value=sVal;
+}
+oJs.convertVal=function(sSourceId){
+	var sTargId=(sSourceId=='decval')? 'hexval':'decval', iNum=oJs.readVal(sSourceId);
+	if (isNaN(iNum)) {
+		alert('Not a valid number!');
+		return;
+	}
+	oJs.writeVal(sTargId, iNum);
+}
+oJs.keepWorking=function(){
+	if (oJs.selectedInput){
+		oIn=oJs.getInput(oJs.selectedInput);
+		sChars=(oJs.selectedInput=='hexval')? oJs.sHex:oJs.sDec;
+		if (oJs.checkInput(oIn, sChars)) oJs.convertVal(oJs.selectedInput);
+	}
+}
+window.onkeyup=oJs.keepWorking;
+
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>Dec-to-Hex (and back) Converter.</h1>
+<p>Convert decimal integers to hexadecimal and vice versa.</p>
+<fieldset id="decbox" class="inbox">
+<legend>Dec</legend>
+<input type="text" id="decval" size="18" maxlength="20" onfocus="oJs.selectInput(this.id)" onblur="oJs.dropSelected(this.id)" />
+</fieldset>
+<fieldset id="hexbox" class="inbox">
+<legend>Hex</legend>
+0x<input type="text" id="hexval" size="16" maxlength="20" onfocus="oJs.selectInput(this.id)" onblur="oJs.dropSelected(this.id)" />
+</fieldset>
+<div style="clear:both;"></div>
+</div>
+</body>
+</html>

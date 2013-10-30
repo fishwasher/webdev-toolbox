@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>HTML Coder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+div.main {margin:4px 8px;}
+#result {padding:1em; font:9pt arial,sans-serif; background:#dcdcdc; border:1px solid #666;}
+
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+var sUpper='nbsp iexcl cent pound curren yen brvbar sect uml copy ordf laquo not shy reg macr deg plusmn sup2 sup3 acute micro para middot cedil sup1 ordm raquo frac14 frac12 frac34 iquest Agrave Aacute Acirc Atilde Auml Aring AElig Ccedil Egrave Eacute Ecirc Euml Igrave Iacute Icirc Iuml ETH Ntilde Ograve Oacute Ocirc Otilde Ouml times Oslash Ugrave Uacute Ucirc Uuml Yacute THORN szlig agrave aacute acirc atilde auml aring aelig ccedil egrave eacute ecirc euml igrave iacute icirc iuml eth ntilde ograve oacute ocirc otilde ouml divide oslash ugrave uacute ucirc uuml yacute thorn yuml';
+var aUpper=sUpper.split(' ');
+var aLiterals=[];
+for (var i=0; i<160; i++) aLiterals[i]='';
+for (var i=0, n=aUpper.length; i<n; i++)aLiterals.push(aUpper[i]);
+aLiterals[34]='quot';aLiterals[38]='amp';aLiterals[60]='lt'; aLiterals[62]='gt'; aLiterals[128]='euro';
+
+function clearOutput(){
+	document.forms[0].elements['textOut'].value='';
+	document.getElementById('divOut').style.display='none';
+	document.getElementById('result').innerHTML='';
+}
+function translateText(sIn, bFilter, bUseLiterals){
+	var a=[];
+	for (var i=0, n=sIn.length; i<n; i++) {
+		var iN=sIn.charCodeAt(i);
+		if (iN<32 || (bFilter && iN<128 && !aLiterals[iN])) a.push(sIn.charAt(i));
+		else {
+			if (bUseLiterals && iN<aLiterals.length && aLiterals[iN]) {
+				a.push('&'+aLiterals[iN]+';');
+			}
+			else {
+				var sPref='&#';
+				if (iN<100) sPref+='0';
+				a.push(sPref+iN+';');
+			}
+		}
+	}
+	return a.join('');
+}
+function doTheJob(){
+	var f=document.forms[0];
+	document.getElementById('divOut').style.display='block';
+	vIn=f.elements['textIn'].value;
+	oOut=f.elements['textOut'];
+	b1=(f.elements['mode'][1].checked)? 1:0;
+	b2=(f.elements['literals'].checked)? 1:0;
+	oOut.value=translateText(vIn, b1, b2);
+	oOut.focus(); oOut.select();
+	document.getElementById('result').innerHTML=oOut.value;
+}
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>HTML coder/obfuscator.</h1>
+<form onsubmit="return false">
+<div onclick="clearOutput()">
+<p>
+<input type="radio" name="mode" value="" checked="checked" /> Obfuscate all<br/>
+<input type="radio" name="mode" value="1" /> Encode special chars and non-ASCII only<br/>
+<input type="checkbox" name="literals" /> Use literals rather than numbers
+</p>
+<p>Enter text:</p>
+<textarea name="textIn" rows="8" cols="80" onfocus="this.select()"></textarea>
+</div>
+<p><button onclick="doTheJob()">Encode</button></p>
+<div id="divOut" style="display:none;">
+<p>Copy this (Ctrl-C):</p>
+<textarea name="textOut" rows="8" cols="80"></textarea>
+<p>Verify:</p>
+<div id="result"></div>
+</div>
+</form>
+</div>
+</body>
+</html>

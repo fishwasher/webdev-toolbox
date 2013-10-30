@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Entity Picker</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+a {text-decoration:none;}
+a:hover {color:#c30; text-decoration:underline;}
+table.chartab {border:1px solid #000; background-color:#fff; text-align:left;}
+table.chartab td {background-color:#fff;}
+table.chartab td.pick {padding:1px; text-align:center; color:#036; font-weight:bold; min-width:2em; border:1px solid #000; border-width:1px 0 0 1px; cursor:pointer;}
+table.chartab td.hexvals {background-color:#ccc; color:#000; font:normal 9pt 'courier new',monospace; border:0;}
+table.chartab td.empty {background:#dcdcdc;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+.big {font:bold 16pt verdana,arial,sans-serif; color:#03c;}
+.code {font:10pt 'courier new',monospace; color:#039; background-color:#dcdcdc;}
+div.main {margin:4px 8px;}
+div.code {border:1px solid #ccc;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+#copyconfirm {color:#666;}
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+function unpaintCell(){
+	if (lastCell) lastCell.style.backgroundColor='#fff';
+	lastCell=null;
+}
+function paintCell(oTd){
+	unpaintCell();
+	lastCell=oTd;
+	lastCell.style.backgroundColor='#ff0';
+}
+function copyMySpan(oTd, n){
+	paintCell(oTd);
+	var o1=document.getElementById('entity'+n);
+	var o2=document.getElementById('myinput');
+	var o3=document.getElementById('status');
+	o3.style.display='block';
+	//o2.disabled=false;
+	o2.value=o1.innerHTML.replace('&amp;', '&');
+	o2.focus(); o2.select();
+	var s=(document.all) ? document.selection:window.getSelection();
+	var r=(document.all) ? s.createRange():s.getRangeAt(0);
+	var o4=document.getElementById('copyconfirm');
+	var t=(document.all)? 'Copied to Clipboard (Ctrl-V to Paste elsewhere)':' (Press Ctrl-C to copy)';
+	o4.innerHTML='<span class="big">'+o2.value+'</span> '+t;
+	if (document.all) {
+		r.execCommand("Copy");
+	}
+}
+function clearMyCopy(oIn){
+	unpaintCell();
+	oIn.value='';// oIn.blur(); oIn.disabled=true;
+	var oSpan=document.getElementById('copyconfirm');
+	oSpan.innerHTML='';
+	var oP=document.getElementById('status');
+	oP.style.display='none';
+}
+var a=[];
+for (var i=0; i<160; i++) {a[i]='';}
+a[34]='quot'; a[38]='amp'; a[60]='lt'; a[62]='gt'; a[128]='euro';// a[153]='trade'
+s='nbsp iexcl cent pound curren yen brvbar sect uml copy ordf laquo not shy reg macr deg plusmn sup2 sup3 acute micro para middot cedil sup1 ordm raquo frac14 frac12 frac34 iquest Agrave Aacute Acirc Atilde Auml Aring AElig Ccedil Egrave Eacute Ecirc Euml Igrave Iacute Icirc Iuml ETH Ntilde Ograve Oacute Ocirc Otilde Ouml times Oslash Ugrave Uacute Ucirc Uuml Yacute THORN szlig agrave aacute acirc atilde auml aring aelig ccedil egrave eacute ecirc euml igrave iacute icirc iuml eth ntilde ograve oacute ocirc otilde ouml divide oslash ugrave uacute ucirc uuml yacute thorn yuml';
+aa=s.split(' ');
+for (var i=0, n=aa.length; i<n; i++) a.push(aa[i]);
+var aX=['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'], iMax=aX.length, a1=[], a2=[];
+a1.push('<tr>\n<td class="hexvals">hex</td>');
+for (var i=0; i<iMax; i++) a1.push('<td class="hexvals">'+aX[i]+'</td>');
+a1.push('\n</tr>');
+for (i=2; i<iMax; i++) {
+	a2=['\n<tr>\n<td class="hexvals">&nbsp;&nbsp;'+aX[i]+'&nbsp;&nbsp;</td>'];
+	for (j=0; j<iMax; j++) {
+		var n = i*iMax+j, sn=n;
+		if (n<100) sn='0'+sn;
+		var c1='&#'+sn+';', c2='&amp;#'+sn+';', c3=(a[n])? '&amp;'+a[n]+';':'&nbsp;';
+		var id=' id="entity'+n+'"', id1=(a[n])? '':id, id2=(a[n])? id:'';
+		a2.push('<td class="pick" onclick="copyMySpan(this,'+n+')">'+c1+'<br/><span class="small"><span'+id1+'>'+c2+'</span><br/><span'+id2+'>'+c3+'</span></span></td>');
+	}
+	a2.push('\n</tr>');
+	a1.push(a2.join(''));
+}
+var lastCell=null;
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>Entity Picker</h1>
+<p>Click on character to select/copy</p>
+<table class="chartab" cellspacing="0">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+document.write(a1.join('\n'));
+//--><!]]></script>
+</table>
+<p id="status" style="display:none;"><input type="text" id="myinput" size="10" onclick="clearMyCopy(this)" /> <span id="copyconfirm"></span></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Unicoder for Python</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="author" content="Vlad Podvorny" />
+<style>
+* {padding:0; margin:0;}
+body {font:10pt verdana,arial,sans-serif; background:#fff;}
+h1 {font:14pt verdana,arial,sans-serif; color:#666; padding:0.2em;}
+p {padding:2px 0;}
+button {border:1px solid #333; font:9pt arial,sans-serif;}
+a {text-decoration:none;}
+a:hover {color:#c30; text-decoration:underline;}
+.small {font:normal 8pt arial,sans-serif; line-height:1.1;}
+div.main {margin:4px 8px;}
+span.small {color:#000;}
+a.small {color:#00f;}
+a.small:hover {color:#f00;}
+
+</style>
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+function hexStr(iNum){
+	return iNum.toString(16);
+}
+
+function clearOutput(){
+	document.forms[0].elements['textOut'].value='';
+	document.getElementById('divOut').style.display='none';
+}
+function conv2Unicode(sIn){
+	var a=[];
+	for (var i=0, n=sIn.length; i<n; i++) {
+		var iN=sIn.charCodeAt(i), sHex=iN.toString(16);
+		if (iN<128) a.push(sIn.charAt(i));
+		else if (sHex.length<3) a.push('\\x'+sHex);
+		else a.push('\\u'+sHex);
+	}
+	return a.join('');
+}
+function doTheJob(){
+	var f=document.forms[0];
+	document.getElementById('divOut').style.display='block';
+	vIn=f.elements['textIn'].value;
+	oOut=f.elements['textOut'];
+	oOut.value=conv2Unicode(vIn);
+	oOut.focus(); oOut.select();
+}
+//--><!]]></script>
+</head>
+<body>
+<div class="main">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+if (top.location.href!=self.location.href) {
+	document.write('<p><a class="small" href="javascript:top.location.href=self.location.href;">remove frames</a></p>');
+}
+//--><!]]></script>
+<h1>Unicode string converter for Python</h1>
+<p>All non-ASCII chars will be converted to their hex representation compatible with Python's unicode strings.</p>
+<form onsubmit="return false">
+<div onclick="clearOutput()">
+<p>Enter text:</p>
+<textarea name="textIn" rows="8" cols="80" onfocus="this.select()"></textarea>
+</div>
+<p><button onclick="doTheJob()">Encode</button></p>
+<div id="divOut" style="display:none;">
+<p>Copy this (Ctrl-C):</p>
+<textarea name="textOut" rows="8" cols="80"></textarea>
+</div>
+</form>
+</div>
+</body>
+</html>
